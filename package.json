@@ -1,0 +1,25 @@
+{
+  "name": "express-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": "^11.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cloudinary": "^1.14.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-react-views": "^0.11.0",
+    "js-sha256": "^0.9.0",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.2",
+    "package.json": "^2.0.1",
+    "pg": "^7.12.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
