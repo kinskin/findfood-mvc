@@ -17,28 +17,63 @@ module.exports = (db) => {
    }
 
     let foodShopsControllerCallback = (request, response) => {
-        console.log(!request.query.location)
-        if(!request.query.location || request.query.location === undefined){
+        if(!request.query.location){
             db.foodShops.getAllFoodShops(request.query.location, (error, result) => {
                 if(error){
                     console.log(error)
                     console.log('error in getting data from database')
                 }
                 else{
-                    db.foodShops.getDistinctCategory((error,result2)=>{
-                        if(error){
-                            console.log(error)
-                            console.log('error in getting distinct location')
+                    if(!request.query.category){
+                        db.foodShops.getDistinctCategory((error,result2)=>{
+                            if(error){
+                                console.log(error)
+                                console.log('error in getting distinct location')
+                            }
+                            else{
+                                let data = {
+                                    location: 'all locations',
+                                    foodShops : result,
+                                    category: result2
+                                }
+                                response.render('foodShops/index', data);
+                            }
+                        })
+                    }
+                    else{
+                        let filterResult = []
+                        console.log('this is the category: ', Array.isArray(request.query.category))
+                        if(Array.isArray(request.query.category) === true){
+                            for(let i = 0; i < request.query.category.length; i++){
+                                for(let j = 0; j < result.length; j++){
+                                    if(result[j].category === request.query.category[i]){
+                                        filterResult.push(result[j])
+                                    }
+                                }
+                            }
                         }
                         else{
-                            let data = {
-                                location: 'all locations',
-                                foodShops : result,
-                                category: result2
+                            for(let i = 0; i < result.length; i++){
+                                if(result[i].category === request.query.category){
+                                    filterResult.push(result[i])
+                                }
                             }
-                            response.render('foodShops/index', data);
                         }
-                    })
+                        db.foodShops.getDistinctCategory((error,result2)=>{
+                            if(error){
+                                console.log(error)
+                                console.log('error in getting distinct location')
+                            }
+                            else{
+                                let data = {
+                                    location: 'all locations',
+                                    foodShops : filterResult,
+                                    category: result2
+                                }
+                                response.render('foodShops/index', data);
+                            }
+                        })
+                    }
                 }
             });
         }
@@ -50,20 +85,55 @@ module.exports = (db) => {
                     console.log('error in getting data from database')
                 }
                 else{
-                    db.foodShops.getDistinctCategory((error,result2)=>{
-                        if(error){
-                            console.log(error)
-                            console.log('error in getting distinct location')
+                    if(!request.query.category){
+                        db.foodShops.getDistinctCategory((error,result2)=>{
+                            if(error){
+                                console.log(error)
+                                console.log('error in getting distinct location')
+                            }
+                            else{
+                                let data = {
+                                    location: request.query.location,
+                                    foodShops : result,
+                                    category: result2
+                                }
+                                response.render('foodShops/index', data);
+                            }
+                        })
+                    }
+                    else{
+                        let filterResult = []
+                        if(Array.isArray(request.query.category) === true){
+                            for(let i = 0; i < request.query.category.length; i++){
+                                for(let j = 0; j < result.length; j++){
+                                    if(result[j].category === request.query.category[i]){
+                                        filterResult.push(result[j])
+                                    }
+                                }
+                            }
                         }
                         else{
-                            let data = {
-                                location: request.query.location,
-                                foodShops : result,
-                                category: result2
+                            for(let i = 0; i < result.length; i++){
+                                if(result[i].category === request.query.category){
+                                    filterResult.push(result[i])
+                                }
                             }
-                            response.render('foodShops/index', data);
                         }
-                    })
+                        db.foodShops.getDistinctCategory((error,result2)=>{
+                            if(error){
+                                console.log(error)
+                                console.log('error in getting distinct location')
+                            }
+                            else{
+                                let data = {
+                                    location: request.query.location,
+                                    foodShops : filterResult,
+                                    category: result2
+                                }
+                                response.render('foodShops/index', data);
+                            }
+                        })
+                    }
                 }
             });
         }

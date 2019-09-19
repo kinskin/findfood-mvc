@@ -9,7 +9,7 @@ module.exports = (dbPoolInstance) => {
 
 
     let getAllFoodShops = (location, callback) => {
-        if(location === ''){
+        if(location === '' || location === undefined){
             let query = 'SELECT * FROM foodplace';
 
             dbPoolInstance.query(query, (error, queryResult) => {

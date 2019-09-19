@@ -30,7 +30,7 @@ class Index extends React.Component {
         }
 
         let shopStyle = {
-            height: '280px',
+            height: '300px',
             width:'18rem',
         }
 
@@ -43,10 +43,11 @@ class Index extends React.Component {
                 return(
                     <div className="card mb-3" style={shopStyle} key={index}>
                         <img style={shopImageCategory} className="card-img-top" src={shop.image_url}/>
-                        <div className="card-body">
+                        <div className="card-body text-center">
                             <a className='btn' href={showUrl}>
                             <strong>{shop.shopname}</strong>
                             </a>
+                            <p>{shop.category}</p>
                         </div>
                     </div>
                     )
