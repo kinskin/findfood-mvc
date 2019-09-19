@@ -2,42 +2,68 @@ var React = require('react')
 
 
 class Index extends React.Component {
+
+    constructor(props){
+
+        super()
+
+        this.state = {
+            location: props.location
+        }
+    }
+
+
+
     render(){
+
+        let search = '/findfood/'
 
         let shopImageCategory = {
             height:'200px',
-            weight:'300px'
+            widht:'300px'
         }
 
         let allFoodStyle = {
-            display:'flex',
-            flexWrap:'wrap'
+            height: '650px',
+            width: 'auto',
+            overflowY: 'scroll'
         }
 
         let shopStyle = {
+            height: '280px',
             width:'18rem',
-            margin:'10px auto'
         }
 
-        let mapFoodShops = this.props.foodShops.map(shop=>{
-            let showUrl = '/findfood/'+shop.foodplace_id
-            return(
-                <div className="card" style={shopStyle}>
-                    <img style={shopImageCategory} className="card-img-top" src={shop.image_url}/>
-                    <div className="card-body">
-                        <a className='btn' href={showUrl}>
-                        Shop name: {shop.shopname}
-                        </a>
-                        <div className='card-header'>
-                            <p>Location: {shop.location}</p>
-                            <p>Address: {shop.address}</p>
-                            <p>Postal Code: S({shop.postalcode})</p>
+
+        let mapFoodShops;
+
+        if(this.props.foodShops != null){
+            mapFoodShops = this.props.foodShops.map((shop,index)=>{
+                let showUrl = '/findfood/'+shop.foodplace_id
+                return(
+                    <div className="card mb-3" style={shopStyle} key={index}>
+                        <img style={shopImageCategory} className="card-img-top" src={shop.image_url}/>
+                        <div className="card-body">
+                            <a className='btn' href={showUrl}>
+                            <strong>{shop.shopname}</strong>
+                            </a>
                         </div>
                     </div>
-                </div>
-                )
-        })
+                    )
+            })
+        }
+        else{
+            mapFoodShops = <p> No hawkers entries </p>
+        }
 
+        let filterCategory = this.props.category.map((category,index)=>{
+            return(
+                <div className='d-flex flex-row justify-content-start align-items-baseline'>
+                    <input type='checkbox' name= 'category' value={category.category} key={index}></input>
+                    <p> {category.category}</p>
+                </div>
+            )
+        })
 
     return(
         <html>
@@ -46,12 +72,31 @@ class Index extends React.Component {
                 <link rel="stylesheet" href="./foodShops/index.css"/>
             </head>
             <body>
-
                 <div className='container-fluid'>
-                    <div className="card">
-                        <div class="card-header">All foodplace</div>
-                        <div className="card-body" style={allFoodStyle}>
-                            <p>{mapFoodShops}</p>
+                    <div className='my-3 text-center'>
+                        <h3>Hawkers</h3>
+                    </div>
+                    <div className='row'>
+                        <div className='col-3 my-4'>
+                            <form method='GET' action={search}>
+                                <p>Search by: </p>
+                                <input className='form-control'type='text' name='location' placeholder='search by location'/>
+                                <br/>
+                                <p> Filter by: </p>
+                                {filterCategory}
+                                <div className='text-right d-flex flex-row justify-content-around'>
+                                    <button className='btn btn-sm btn-outline-primary'><a href='/findfood'> reset </a></button>
+                                    <input className='btn btn-sm btn-outline-success'type='submit'></input>
+                                </div>
+                            </form>
+                        </div>
+                        <div className='col-9 my-4'>
+                            <div className='text-center'>
+                                <h6>Hawker stalls at {this.state.location}</h6>
+                            </div>
+                            <div className="card-body d-flex flex-wrap justify-content-around" style={allFoodStyle}>
+                                {mapFoodShops}
+                            </div>
                         </div>
                     </div>
                 </div>
