@@ -24,16 +24,27 @@ class Index extends React.Component {
         }
 
         let allFoodStyle = {
+            borderRadius: '10px',
+            backgroundColor: 'white',
             height: '650px',
             width: 'auto',
             overflowY: 'scroll'
         }
 
         let shopStyle = {
-            height: '300px',
-            width:'18rem',
+            height: '320px',
+            width:'14rem',
         }
 
+        let formStyle = {
+            height:'400px',
+            backgroundColor: 'white'
+        }
+
+        let bodyStyle = {
+            backgroundImage: `url('https://mymodernmet.com/wp/wp-content/uploads/2018/07/food-art-foodscapes-carl-warner-23.jpg')`,
+            backgroundRepeat: 'repeat'
+        }
 
         let mapFoodShops;
 
@@ -71,32 +82,53 @@ class Index extends React.Component {
             <head>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous"></link>
                 <link rel="stylesheet" href="./foodShops/index.css"/>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"/>
             </head>
-            <body>
+            <body style={bodyStyle}>
                 <div className='container-fluid'>
-                    <div className='my-3 text-center'>
+                    <div className='navbar text-warning'>
                         <h3>Hawkers</h3>
+                        <div className="dropleft">
+                            <button class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='bx bx-user'></i>
+                            </button>
+                            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a className="dropdown-item" href="#"><i className='bx bxs-user-circle' style={{fontSize: '15px'}}></i>Profile</a>
+                                <a className="dropdown-item" href="#"><i className='bx bxs-log-out' style={{fontSize: '15px'}}></i>Sign out</a>
+                            </div>
+                        </div>
                     </div>
                     <div className='row'>
                         <div className='col-3 my-4'>
-                            <form method='GET' action={search}>
-                                <p>Search by: </p>
-                                <input className='form-control'type='text' name='location' placeholder='search by location'/>
-                                <br/>
-                                <p> Filter by: </p>
-                                {filterCategory}
-                                <div className='text-right d-flex flex-row justify-content-around'>
-                                    <button className='btn btn-sm btn-outline-primary'><a href='/findfood'> reset </a></button>
-                                    <input className='btn btn-sm btn-outline-success'type='submit'></input>
-                                </div>
-                            </form>
+                            <div className='card'>
+                                <form method='GET' action={search}>
+                                    <div className='my-3 text-center'>
+                                        <h6>Search by: </h6>
+                                    </div>
+                                    <div className='card-body'>
+                                        <input className='form-control'type='text' name='location' placeholder='search by location'/>
+                                    </div>
+                                    <br/>
+                                    <div className='my-3 text-center'>
+                                        <h6> Filter by: </h6>
+                                    </div>
+                                    <div className='card-body'>
+                                        {filterCategory}
+                                    </div>
+                                    <div className='mb-3 text-right d-flex flex-row justify-content-around align-items-baseline'>
+                                        <a href='/findfood'><i class='bx bx-reset' style={{fontSize: '30px'}}></i></a>
+                                        <button className='btn btn-sm' type='submit'><i class='bx bxs-send' style={{fontSize: '30px'}}></i></button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         <div className='col-9 my-4'>
-                            <div className='text-center'>
-                                <h6>Hawker stalls at {this.state.location}</h6>
-                            </div>
-                            <div className="card-body d-flex flex-wrap justify-content-around" style={allFoodStyle}>
-                                {mapFoodShops}
+                            <div className='card'>
+                                <div className='my-3 text-center'>
+                                    <h6>Hawker stalls at {this.state.location}</h6>
+                                </div>
+                                <div className="card-body d-flex flex-wrap justify-content-around" style={allFoodStyle}>
+                                    {mapFoodShops}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -70,7 +70,6 @@ module.exports = (dbPoolInstance) => {
     }
 
     let getFoodShop = (params, callback) => {
-        console.log(params)
         let query = 'SELECT * FROM foodplace where foodplace_id = $1'
         let values = [params]
         dbPoolInstance.query(query, values, (error, queryResult)=>{
