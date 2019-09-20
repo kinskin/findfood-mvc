@@ -9,9 +9,11 @@ module.exports = (db) => {
 
    let foodShopControllerCallback = (request, response) => {
     db.foodShops.getFoodShop(request.params.id, (error,result)=>{
+
         let data = {
-            foodshop: result
+            foodshop: result[0]
         }
+        console.log(data)
         response.render('foodShops/show', data)
     })
    }

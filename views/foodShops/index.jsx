@@ -42,7 +42,8 @@ class Index extends React.Component {
         }
 
         let bodyStyle = {
-            backgroundImage: `url('https://mymodernmet.com/wp/wp-content/uploads/2018/07/food-art-foodscapes-carl-warner-23.jpg')`,
+            backgroundImage: `url('https://al-assri.com/wp-content/uploads/2019/04/WhatsApp-Image-2019-01-03-at-9.42.54-PM.jpeg')`,
+            backgroundSize: 'cover',
             backgroundRepeat: 'repeat'
         }
 
@@ -86,10 +87,10 @@ class Index extends React.Component {
             </head>
             <body style={bodyStyle}>
                 <div className='container-fluid'>
-                    <div className='navbar text-warning'>
+                    <div className='navbar text-light'>
                         <h3>Hawkers</h3>
                         <div className="dropleft">
-                            <button class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='bx bx-user'></i>
+                            <button className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='bx bx-user'></i>
                             </button>
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a className="dropdown-item" href="#"><i className='bx bxs-user-circle' style={{fontSize: '15px'}}></i>Profile</a>
