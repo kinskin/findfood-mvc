@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username TEXT,
+    email TEXT,
     password TEXT,
     profile_name TEXT,
     profile_image TEXT

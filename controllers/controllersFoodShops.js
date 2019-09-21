@@ -7,6 +7,13 @@ module.exports = (db) => {
    */
 
 
+   let homeControllerCallback = (request,response) =>{
+    let data = {
+        loggedIn: false
+    }
+    response.render('foodShops/home',data)
+   }
+
    let foodShopControllerCallback = (request, response) => {
     db.foodShops.getFoodShop(request.params.id, (error,result)=>{
 
@@ -36,7 +43,8 @@ module.exports = (db) => {
                                 let data = {
                                     location: 'all locations',
                                     foodShops : result,
-                                    category: result2
+                                    category: result2,
+                                    loggedIn: false
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -70,7 +78,8 @@ module.exports = (db) => {
                                 let data = {
                                     location: 'all locations',
                                     foodShops : filterResult,
-                                    category: result2
+                                    category: result2,
+                                    loggedIn: false
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -97,7 +106,8 @@ module.exports = (db) => {
                                 let data = {
                                     location: request.query.location,
                                     foodShops : result,
-                                    category: result2
+                                    category: result2,
+                                    loggedIn: false
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -130,7 +140,8 @@ module.exports = (db) => {
                                 let data = {
                                     location: request.query.location,
                                     foodShops : filterResult,
-                                    category: result2
+                                    category: result2,
+                                    loggedIn: false
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -148,6 +159,7 @@ module.exports = (db) => {
    * ===========================================
    */
   return {
+    home: homeControllerCallback,
     foodShops: foodShopsControllerCallback,
     foodshop: foodShopControllerCallback
   };
