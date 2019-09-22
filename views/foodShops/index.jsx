@@ -14,7 +14,9 @@ class Index extends React.Component {
         super()
 
         this.state = {
-            location: props.location
+            location: props.location,
+            signin: '/findfood/signin',
+            signup: '/findfood/signup'
         }
     }
 
@@ -130,10 +132,8 @@ class Index extends React.Component {
                     </div>
                 </div>
 
-
-                <SignIn/>
-                <SignUp/>
-
+                <SignIn />
+                <SignUp />
 
                 <JQBootstrap/>
             </body>

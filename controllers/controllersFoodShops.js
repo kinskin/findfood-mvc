@@ -9,7 +9,7 @@ module.exports = (db) => {
 
    let homeControllerCallback = (request,response) =>{
     let data = {
-        loggedIn: false
+        loggedIn: request.cookies.logged_in
     }
     response.render('foodShops/home',data)
    }
@@ -20,7 +20,6 @@ module.exports = (db) => {
         let data = {
             foodshop: result[0]
         }
-        console.log(data)
         response.render('foodShops/show', data)
     })
    }
@@ -44,7 +43,7 @@ module.exports = (db) => {
                                     location: 'all locations',
                                     foodShops : result,
                                     category: result2,
-                                    loggedIn: false
+                                    loggedIn: request.cookies.logged_in
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -79,7 +78,7 @@ module.exports = (db) => {
                                     location: 'all locations',
                                     foodShops : filterResult,
                                     category: result2,
-                                    loggedIn: false
+                                    loggedIn: request.cookies.logged_in
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -107,7 +106,7 @@ module.exports = (db) => {
                                     location: request.query.location,
                                     foodShops : result,
                                     category: result2,
-                                    loggedIn: false
+                                    loggedIn: request.cookies.logged_in
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -141,7 +140,7 @@ module.exports = (db) => {
                                     location: request.query.location,
                                     foodShops : filterResult,
                                     category: result2,
-                                    loggedIn: false
+                                    loggedIn: request.cookies.logged_in
                                 }
                                 response.render('foodShops/index', data);
                             }

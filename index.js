@@ -20,16 +20,7 @@ const multer = require('multer');
  */
 
 
-const storage = multer.diskStorage({
-  destination: function (request, file, callback) {
-    callback(null, './uploads')
-  },
-  filename: function (request, file, callback) {
-    callback(null,file.originalname)
-  }
-})
 
-const upload = multer({ storage: storage })
 
 // Init express app
 const app = express();
@@ -42,6 +33,18 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+app.use('./uploads', express.static('uploads'));
+
+const storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, './uploads')
+  },
+  filename: function (request, file, callback) {
+    callback(null,file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 // Set react-views to be the default view engine
 const reactEngine = require('express-react-views').createEngine();
@@ -49,6 +52,13 @@ const reactEngine = require('express-react-views').createEngine();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
+
+cloudinary.config({
+cloud_name: 'kinskin',
+api_key: '247796894467252',
+api_secret: '7lp9R--e0hOxUv0nROCeD0OyBVc'
+});
+
 
 /**
  * ===================================

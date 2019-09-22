@@ -20,19 +20,19 @@ class SignUp extends React.Component{
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLongTitle">Hello new user. Fill the form below to sign up</h5>
+                            <h5 className="modal-title" id="exampleModalLongTitle">Hello new user. Please sign up below.</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form className='form-group' method='POST' url={signUp}>
+                            <form className='form-group' method='POST' action={signUp}>
                                 <p> Email Address </p>
                                 <input className='form-control' type='text' name='email' placeholder={this.state.emailPlaceholder}/>
                                 <p> Profile Name </p>
                                 <input className='form-control' type='text' name='profilename' placeholder={this.state.profileNamePlaceholder}/>
                                 <p> Profile Image </p>
-                                <input className='form-control' type='file'/>
+                                <input type='file' className='btn btn-md' type='file' name='profile_image'/>
                                 <p> Password </p>
                                 <input className='form-control' type='password' name='password' placeholder={this.state.passwordPlaceholder}/>
                                 <br/>

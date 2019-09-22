@@ -12,7 +12,7 @@ class SignIn extends React.Component{
     }
 
     render(){
-        let signIn = '/findfood/signin'
+
         return(
             <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,11 +24,11 @@ class SignIn extends React.Component{
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form className='form-group'method='POST' url={signIn}>
+                            <form method='POST' action="/findfood/signin" className='form-group'>
                                 <p>Email Address:</p>
-                                <input className='form-control' placeholder={this.state.emailPlaceholder}/>
+                                <input type='text' name='email'className='form-control' placeholder={this.state.emailPlaceholder}/>
                                 <p>Password:</p>
-                                <input className='form-control' placeholder={this.state.passwordPlaceholder}/>
+                                <input type='password' name='password' className='form-control' placeholder={this.state.passwordPlaceholder}/>
                                 <br/>
                                 <div className='d-flex flex-row justify-content-around'>
                                     <button type="button" class="btn btn-lg" data-dismiss="modal"><i class='bx bx-window-close'></i>Close</button>
