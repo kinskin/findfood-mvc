@@ -26,16 +26,18 @@ class Users extends React.Component{
             backgroundImage: `url('https://al-assri.com/wp-content/uploads/2019/04/WhatsApp-Image-2019-01-03-at-9.42.54-PM.jpeg')`,
             backgroundSize: 'cover',
             backgroundRepeat: 'repeat',
-            backgroundAttachment: 'fixed'
+            backgroundAttachment: 'fixed',
+            fontFamily: 'CenturyGothic,AppleGothic'
         }
         let users = this.props.users.map((users,index)=>{
+            let profileUrl = '/findfood/profile/'+users.id
             return(
                 <div style={userCard}>
                     <div className='text-center'>
                         <img src={users.profile_image} style={imgStyle}/>
                     </div>
                     <div className='card-body'>
-                        <p>{users.profile_name}</p>
+                        <a href={profileUrl}>{users.profile_name}</a>
                     </div>
                 </div>
             )

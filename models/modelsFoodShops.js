@@ -118,11 +118,24 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    let getFeaturedShop = (callback)=>{
+        let query = 'select * from foodplace order by foodplace_id desc'
+        dbPoolInstance.query(query,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                callback(null, queryResult.rows)
+            }
+        })
+    }
+
   return {
     getAllFoodShops,
     getFoodShop,
     getDistinctCategory,
     getUserShop,
     countEntries,
+    getFeaturedShop
   };
 };

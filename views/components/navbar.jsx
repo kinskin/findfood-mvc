@@ -10,6 +10,7 @@ class Navbar extends React.Component{
 
         let userStatus;
         let allUsers;
+        let url = '/findfood/profile/'+this.props.userId
         if(this.props.loggedIn === undefined){
             userStatus = <fragment>
                             <button className="dropdown-item btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#signInModal"><i class='bx bx-log-in' style={{fontSize: '15px'}}></i>Sign in</button>
@@ -18,7 +19,7 @@ class Navbar extends React.Component{
         }
         else{
             userStatus = <fragment>
-                            <a className="dropdown-item" href="/findfood/profile"><i className='bx bxs-user-circle' style={{fontSize: '15px'}}></i>Profile</a>
+                            <a className="dropdown-item" href={url}><i className='bx bxs-user-circle' style={{fontSize: '15px'}}></i>Profile</a>
                             <form method='POST' action='/findfood/signout'>
                                 <button className="dropdown-item btn btn-sm"><i className='bx bxs-log-out' style={{fontSize: '15px'}}></i>Sign out</button>
                             </form>

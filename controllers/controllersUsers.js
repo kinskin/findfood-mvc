@@ -44,7 +44,7 @@ module.exports = (db) => {
 
     let profileControllerCallback = (request,response)=>{
         if(request.cookies.logged_in !== undefined ){
-            db.users.showUser(request.cookies.userId,(error,result)=>{
+            db.users.showUser(request.params.id,(error,result)=>{
                 if(error){
                     console.log(error)
                     console.lor('error is getting specific user')
@@ -61,7 +61,8 @@ module.exports = (db) => {
                                     userId: request.cookies.userId,
                                     loggedIn: request.cookies.logged_in,
                                     user: result[0],
-                                    userShopEntries: null
+                                    userShopEntries: null,
+                                    numEntries: 0
                                 }
                                 response.render('../views/profile/profile', data)
                             }
@@ -82,7 +83,6 @@ module.exports = (db) => {
                                         response.render('../views/profile/profile', data)
                                     }
                                 })
-
                             }
                         }
                     })

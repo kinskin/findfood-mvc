@@ -7,18 +7,39 @@ module.exports = (db) => {
    */
 
 
-   let homeControllerCallback = (request,response) =>{
-    let data = {
-        loggedIn: request.cookies.logged_in
-    }
-    response.render('foodShops/home',data)
+    let homeControllerCallback = (request,response) =>{
+        db.foodShops.getFeaturedShop((error,result)=>{
+            if(error){
+                console.log(error)
+                console.log('error in getting featured shop')
+            }
+            else{
+                db.users.getFeaturedUsers((error,result2)=>{
+                    if(error){
+                        console.log(error)
+                        console.log('error in getting featured users')
+                    }
+                    else{
+                        let data = {
+                            loggedIn: request.cookies.logged_in,
+                            userId: request.cookies.userId,
+                            featuredShop: result,
+                            featuredUser: result2
+                        }
+                        response.render('foodShops/home', data)
+                    }
+                })
+            }
+        })
    }
 
    let foodShopControllerCallback = (request, response) => {
     db.foodShops.getFoodShop(request.params.id, (error,result)=>{
 
         let data = {
-            foodshop: result[0]
+            foodshop: result[0],
+            loggedIn: request.cookies.logged_in,
+            userId: request.cookies.userId
         }
         response.render('foodShops/show', data)
     })
@@ -39,11 +60,13 @@ module.exports = (db) => {
                                 console.log('error in getting distinct location')
                             }
                             else{
+                                console.log('this is the id: ', request.cookies.userId)
                                 let data = {
                                     location: 'all locations',
                                     foodShops : result,
                                     category: result2,
-                                    loggedIn: request.cookies.logged_in
+                                    loggedIn: request.cookies.logged_in,
+                                    userId: request.cookies.userId
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -78,7 +101,8 @@ module.exports = (db) => {
                                     location: 'all locations',
                                     foodShops : filterResult,
                                     category: result2,
-                                    loggedIn: request.cookies.logged_in
+                                    loggedIn: request.cookies.logged_in,
+                                    userId: request.cookies.userId
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -106,7 +130,8 @@ module.exports = (db) => {
                                     location: request.query.location,
                                     foodShops : result,
                                     category: result2,
-                                    loggedIn: request.cookies.logged_in
+                                    loggedIn: request.cookies.logged_in,
+                                    userId: request.cookies.userId
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -140,7 +165,8 @@ module.exports = (db) => {
                                     location: request.query.location,
                                     foodShops : filterResult,
                                     category: result2,
-                                    loggedIn: request.cookies.logged_in
+                                    loggedIn: request.cookies.logged_in,
+                                    userId: request.cookies.userId
                                 }
                                 response.render('foodShops/index', data);
                             }

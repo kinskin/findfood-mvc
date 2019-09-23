@@ -48,9 +48,22 @@ module.exports = dbPoolInstance =>{
         })
     }
 
+    let getFeaturedUsers = callback =>{
+        let query = 'select distinct users.id,users.profile_name,users.profile_image from users inner join foodplace on users.id = foodplace.user_id'
+        dbPoolInstance.query(query,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                callback(null,queryResult.rows)
+            }
+        })
+    }
+
     return{
         getUser,
         showUser,
-        getAllUsers
+        getAllUsers,
+        getFeaturedUsers
     }
 }

@@ -12,7 +12,8 @@ class Show extends React.Component{
         let bodyStyle = {
             backgroundImage: `url('https://al-assri.com/wp-content/uploads/2019/04/WhatsApp-Image-2019-01-03-at-9.42.54-PM.jpeg')`,
             backgroundSize: 'cover',
-            backgroundRepeat: 'repeat'
+            backgroundRepeat: 'repeat',
+            fontFamily: 'CenturyGothic,AppleGothic'
         }
 
         let imageStyle = {
@@ -29,7 +30,7 @@ class Show extends React.Component{
                 </head>
                 <body style={bodyStyle}>
                     <div className = 'container-fluid'>
-                        <Navbar/>
+                        <Navbar loggedIn = {this.props.loggedIn} userId = {this.props.userId}/>
                         <div className ='row'>
                             <div className='col-6 my-4'>
                                 <div className='card'>

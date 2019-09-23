@@ -13,7 +13,8 @@ class UserProfile extends React.Component{
             backgroundImage: `url('https://al-assri.com/wp-content/uploads/2019/04/WhatsApp-Image-2019-01-03-at-9.42.54-PM.jpeg')`,
             backgroundSize: 'cover',
             backgroundRepeat: 'repeat',
-            backgroundAttachment: 'fixed'
+            backgroundAttachment: 'fixed',
+            fontFamily: 'CenturyGothic,AppleGothic'
         }
 
         let profileImage = {
@@ -71,7 +72,7 @@ class UserProfile extends React.Component{
                 </head>
                 <body style={bodyStyle}>
                     <div className='container-fluid'>
-                        <Navbar loggedIn = {this.props.loggedIn}/>
+                        <Navbar loggedIn = {this.props.loggedIn} userId={this.props.userId}/>
                         <div className='text-center'>
                             <img src={this.props.user.profile_image} style={profileImage}/>
                             <div className='card-body rounded bg-light col-4 offset-4 my-3'>
