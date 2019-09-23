@@ -160,7 +160,7 @@ module.exports = (db) => {
   return {
     home: homeControllerCallback,
     foodShops: foodShopsControllerCallback,
-    foodshop: foodShopControllerCallback
+    foodshop: foodShopControllerCallback,
   };
 
 }

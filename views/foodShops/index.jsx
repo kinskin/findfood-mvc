@@ -59,7 +59,7 @@ class Index extends React.Component {
 
         if(this.props.foodShops != null){
             mapFoodShops = this.props.foodShops.map((shop,index)=>{
-                let showUrl = '/findfood/shop'+shop.foodplace_id
+                let showUrl = '/findfood/shop/'+shop.foodplace_id
                 return(
                     <div className="card mb-3" style={shopStyle} key={index}>
                         <img style={shopImageCategory} className="card-img-top" src={shop.image_url}/>
@@ -70,7 +70,7 @@ class Index extends React.Component {
                             <p>{shop.category}</p>
                         </div>
                     </div>
-                    )
+                )
             })
         }
         else{

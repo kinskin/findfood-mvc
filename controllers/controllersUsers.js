@@ -43,7 +43,78 @@ module.exports = (db) => {
 
 
     let profileControllerCallback = (request,response)=>{
-        console.log('this is the user id: ', request.cookies.userId)
+        if(request.cookies.logged_in !== undefined ){
+            db.users.showUser(request.cookies.userId,(error,result)=>{
+                if(error){
+                    console.log(error)
+                    console.lor('error is getting specific user')
+                }
+                else{
+                    db.foodShops.getUserShop(result[0].id,(error,result2)=>{
+                        if(error){
+                            console.log(error)
+                            console.log('error in getting user shop entries')
+                        }
+                        else{
+                            if(result2 === null){
+                                let data = {
+                                    userId: request.cookies.userId,
+                                    loggedIn: request.cookies.logged_in,
+                                    user: result[0],
+                                    userShopEntries: null
+                                }
+                                response.render('../views/profile/profile', data)
+                            }
+                            else{
+                                db.foodShops.countEntries(result[0].id, (error,result3)=>{
+                                    if(error){
+                                        console.log(error)
+                                        console.log('error in counting entries')
+                                    }
+                                    else{
+                                        let data = {
+                                            userId: request.cookies.userId,
+                                            loggedIn: request.cookies.logged_in,
+                                            user: result[0],
+                                            userShopEntries: result2,
+                                            numEntries: result3[0].count
+                                        }
+                                        response.render('../views/profile/profile', data)
+                                    }
+                                })
+
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        else{
+            response.redirect('/')
+        }
+
+    }
+
+    let allUsersControllerCallback = (request,response)=>{
+        if(request.cookies.logged_in !== undefined ){
+            db.users.getAllUsers((error,result)=>{
+                if(error){
+                    console.log(error)
+                    console.log('error in getting all users')
+                }
+                else{
+                    let data = {
+                        loggedIn: request.cookies.logged_in,
+                        users: result
+                    }
+                    response.render('../views/profile/users',data)
+                }
+            })
+        }
+        else{
+            response.redirect('/')
+        }
+
     }
 
 
@@ -56,7 +127,8 @@ module.exports = (db) => {
     signin: signinControllerCallback,
     signup: signupControllerCallback,
     signout: signoutControllerCallback,
-    profile: profileControllerCallback
+    profile: profileControllerCallback,
+    allUsers: allUsersControllerCallback
   };
 
 }

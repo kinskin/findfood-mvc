@@ -87,9 +87,42 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    let getUserShop = (userId,callback)=>{
+        let query = 'select * from foodplace where user_id = $1'
+        let values = [userId]
+        dbPoolInstance.query(query,values,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                if(queryResult.rows.length > 0){
+                    callback(null, queryResult.rows)
+                }
+                else{
+                    callback(null,null)
+                }
+            }
+        })
+    }
+
+    let countEntries = (userId,callback)=>{
+        let query = 'select count(*) from foodplace where user_id = $1'
+        let values = [userId]
+        dbPoolInstance.query(query,values,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                callback(null,queryResult.rows)
+            }
+        })
+    }
+
   return {
     getAllFoodShops,
     getFoodShop,
-    getDistinctCategory
+    getDistinctCategory,
+    getUserShop,
+    countEntries,
   };
 };

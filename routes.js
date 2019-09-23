@@ -22,6 +22,7 @@ module.exports = (app, allModels) => {
 
 
   const usersControllerCallbacks = require('./controllers/controllersUsers.js')(allModels)
+  app.get('/findfood/users', usersControllerCallbacks.allUsers)
   app.get('/findfood/profile', usersControllerCallbacks.profile)
   app.post('/findfood/signout', usersControllerCallbacks.signout)
   app.post('/findfood/signup', usersControllerCallbacks.signup)
