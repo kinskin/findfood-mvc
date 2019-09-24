@@ -28,6 +28,7 @@ module.exports = (app, allModels) => {
     // require the controller
     const foodShopsControllerCallbacks = require('./controllers/controllersFoodShops.js')(allModels);
 
+    app.post('/findfood/newreview/:shopid', foodShopsControllerCallbacks.newReview)
     app.post('/findfood/newshop', upload.single('image_url'), foodShopsControllerCallbacks.newShop)
     app.get('/findfood/shop/:id', foodShopsControllerCallbacks.foodshop)
     app.get('/findfood/shops', foodShopsControllerCallbacks.foodShops)

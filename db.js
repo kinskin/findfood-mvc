@@ -64,9 +64,12 @@ pool.on('error', function (err) {
 
 const foodShopsModelsFunction = require('./models/modelsFoodShops.js');
 const usersModelsFunction = require('./models/modelsUsers.js')
+const reviewsModelFunction = require('./models/modelsReviews.js')
+
 
 const foodShopsModels = foodShopsModelsFunction( pool );
 const usersModels = usersModelsFunction( pool )
+const reviewsModels = reviewsModelFunction( pool )
 
 
 
@@ -98,5 +101,6 @@ module.exports = {
 
   // users: userModelsObject,
   foodShops: foodShopsModels,
-  users: usersModels
+  users: usersModels,
+  reviews: reviewsModels
 };

@@ -49,18 +49,44 @@ module.exports = (db) => {
         })
    }
 
-   let foodShopControllerCallback = (request, response) => {
-    db.foodShops.getFoodShop(request.params.id, (error,result)=>{
-
-        let data = {
-            foodshop: result[0],
-            loggedIn: request.cookies.logged_in,
-            userId: request.cookies.userId,
-            user: request.cookies.userlogIn,
-        }
-        response.render('foodShops/show', data)
-    })
-   }
+    let foodShopControllerCallback = (request, response) => {
+        db.foodShops.getFoodShop(request.params.id, (error,result)=>{
+            if(error){
+                console.log(error)
+                console.log('error in getting the shop detail')
+            }
+            else{
+                db.reviews.getReviews(request.params.id,(error,result2)=>{
+                    if(error){
+                        console.log(error)
+                        console.log('error in getting the reviews')
+                    }
+                    else{
+                        if(result2 === null){
+                            let data = {
+                                foodshop: result[0],
+                                loggedIn: request.cookies.logged_in,
+                                userId: request.cookies.userId,
+                                user: request.cookies.userlogIn,
+                                reviews: null
+                            }
+                            response.render('foodShops/show', data)
+                        }
+                        else{
+                            let data = {
+                                foodshop: result[0],
+                                loggedIn: request.cookies.logged_in,
+                                userId: request.cookies.userId,
+                                user: request.cookies.userlogIn,
+                                reviews: result2
+                            }
+                            response.render('foodShops/show', data)
+                        }
+                    }
+                })
+            }
+        })
+    }
 
     let foodShopsControllerCallback = (request, response) => {
         if(!request.query.location){
@@ -218,6 +244,19 @@ module.exports = (db) => {
     }
 
 
+    let newReview = (request,response)=>{
+        db.reviews.postReview(request.body.rating,request.body.comment,request.params.shopid,request.cookies.userId,(error,result)=>{
+            if(error){
+                console.log(error)
+                console.log('error in posting review')
+            }
+            else{
+                console.log('this is the post result: ', result)
+                response.redirect('/findfood/shop/'+request.params.shopid)
+            }
+        })
+    }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -228,6 +267,7 @@ module.exports = (db) => {
     foodShops: foodShopsControllerCallback,
     foodshop: foodShopControllerCallback,
     newShop: newShop,
+    newReview: newReview,
   };
 
 }
