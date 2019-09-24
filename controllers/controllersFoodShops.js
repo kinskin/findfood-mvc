@@ -77,7 +77,6 @@ module.exports = (db) => {
                                 console.log('error in getting distinct location')
                             }
                             else{
-                                console.log('this is the id: ', request.cookies.userId)
                                 let data = {
                                     location: 'all locations',
                                     foodShops : result,
