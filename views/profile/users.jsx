@@ -4,6 +4,7 @@ import Navbar from '../components/navbar'
 import SignIn from '../components/signin'
 import SignUp from '../components/signup'
 import Bootstrap from '../components/head'
+import NewHawker from '../components/newhawker'
 import JQBootstrap from '../components/jqbootstrap'
 
 
@@ -29,15 +30,15 @@ class Users extends React.Component{
             backgroundAttachment: 'fixed',
             fontFamily: 'CenturyGothic,AppleGothic'
         }
-        let users = this.props.users.map((users,index)=>{
-            let profileUrl = '/findfood/profile/'+users.id
+        let users = this.props.users.map((user,index)=>{
+            let profileUrl = '/findfood/profile/'+user.id
             return(
                 <div style={userCard}>
                     <div className='text-center'>
-                        <img src={users.profile_image} style={imgStyle}/>
+                        <img src={user.profile_image} style={imgStyle}/>
                     </div>
                     <div className='card-body'>
-                        <a href={profileUrl}>{users.profile_name}</a>
+                        <a href={profileUrl}>{user.profile_name}</a>
                     </div>
                 </div>
             )
@@ -59,6 +60,7 @@ class Users extends React.Component{
                         </div>
                     </div>
 
+                    <NewHawker user={this.props.user}/>
                     <JQBootstrap/>
                 </body>
             </html>

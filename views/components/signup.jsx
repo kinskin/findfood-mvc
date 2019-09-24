@@ -26,13 +26,13 @@ class SignUp extends React.Component{
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form className='form-group' method='POST' action={signUp}>
+                            <form className='form-group' encType="multipart/form-data" method='POST' action={signUp}>
                                 <p> Email Address </p>
                                 <input className='form-control' type='text' name='email' placeholder={this.state.emailPlaceholder}/>
                                 <p> Profile Name </p>
-                                <input className='form-control' type='text' name='profilename' placeholder={this.state.profileNamePlaceholder}/>
+                                <input className='form-control' type='text' name='profile_name' placeholder={this.state.profileNamePlaceholder}/>
                                 <p> Profile Image </p>
-                                <input type='file' className='btn btn-md' type='file' name='profile_image'/>
+                                <input className='btn btn-md' type='file' name='profile_image'/>
                                 <p> Password </p>
                                 <input className='form-control' type='password' name='password' placeholder={this.state.passwordPlaceholder}/>
                                 <br/>

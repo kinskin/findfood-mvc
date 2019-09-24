@@ -3,6 +3,7 @@ import Navbar from '../components/navbar'
 import SignIn from '../components/signin'
 import SignUp from '../components/signup'
 import Bootstrap from '../components/head'
+import NewHawker from '../components/newhawker'
 import JQBootstrap from '../components/jqbootstrap'
 
 class UserProfile extends React.Component{
@@ -105,7 +106,7 @@ class UserProfile extends React.Component{
                         </div>
                     </div>
 
-
+                    <NewHawker user={this.props.user}/>
                     <JQBootstrap/>
                 </body>
             </html>

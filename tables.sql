@@ -1,11 +1,3 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    email TEXT,
-    password TEXT,
-    profile_name TEXT,
-    profile_image TEXT
-);
-
 CREATE TABLE IF NOT EXISTS foodplace (
     foodplace_id SERIAL PRIMARY KEY,
     shopname TEXT,

@@ -20,12 +20,13 @@ class Navbar extends React.Component{
         else{
             userStatus = <fragment>
                             <a className="dropdown-item" href={url}><i className='bx bxs-user-circle' style={{fontSize: '15px'}}></i>Profile</a>
+                            <button className="dropdown-item btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addHawkerModal"><i class='bx bx-plus' style={{fontSize: '15px'}}></i>Add new hawker</button>
                             <form method='POST' action='/findfood/signout'>
                                 <button className="dropdown-item btn btn-sm"><i className='bx bxs-log-out' style={{fontSize: '15px'}}></i>Sign out</button>
                             </form>
                         </fragment>
             allUsers =  <fragment>
-                            <a href='/findfood/users' style={navbar}> || Food Goers</a>
+                            || <a href='/findfood/users' style={navbar}> Food Goers</a>
                         </fragment>
         }
 
@@ -33,8 +34,8 @@ class Navbar extends React.Component{
         return(
             <div className='navbar text-light'>
                 <div className='text-left'>
-                    <a href='/findfood/home' style={navbar}><i class='bx bx-home'></i> Hawkers </a> ||
-                    <a href='/findfood/shops' style ={navbar}> Shops </a>
+                    <a href='/findfood/home' style={navbar}><i class='bx bx-home'></i>Hawkers</a> ||
+                    <a href='/findfood/shops' style ={navbar}>Shops</a>
                     {allUsers}
                 </div>
                 <div className="dropleft">

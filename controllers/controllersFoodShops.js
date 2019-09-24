@@ -1,5 +1,20 @@
 module.exports = (db) => {
 
+    const cloudinary = require('cloudinary');
+    const multer = require('multer');
+
+    const storage = multer.diskStorage({
+      destination: function (request, file, callback) {
+        callback(null, '/uploads')
+      },
+      filename: function (request, file, callback) {
+        callback(null,file.originalname)
+      }
+    })
+
+    const upload = multer({ storage: storage })
+
+
   /**
    * ===========================================
    * Controller logic
@@ -23,6 +38,7 @@ module.exports = (db) => {
                         let data = {
                             loggedIn: request.cookies.logged_in,
                             userId: request.cookies.userId,
+                            user: request.cookies.userlogIn,
                             featuredShop: result,
                             featuredUser: result2
                         }
@@ -39,7 +55,8 @@ module.exports = (db) => {
         let data = {
             foodshop: result[0],
             loggedIn: request.cookies.logged_in,
-            userId: request.cookies.userId
+            userId: request.cookies.userId,
+            user: request.cookies.userlogIn,
         }
         response.render('foodShops/show', data)
     })
@@ -66,7 +83,8 @@ module.exports = (db) => {
                                     foodShops : result,
                                     category: result2,
                                     loggedIn: request.cookies.logged_in,
-                                    userId: request.cookies.userId
+                                    userId: request.cookies.userId,
+                                    user: request.cookies.userlogIn,
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -102,7 +120,8 @@ module.exports = (db) => {
                                     foodShops : filterResult,
                                     category: result2,
                                     loggedIn: request.cookies.logged_in,
-                                    userId: request.cookies.userId
+                                    userId: request.cookies.userId,
+                                    user: request.cookies.userlogIn,
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -131,7 +150,8 @@ module.exports = (db) => {
                                     foodShops : result,
                                     category: result2,
                                     loggedIn: request.cookies.logged_in,
-                                    userId: request.cookies.userId
+                                    userId: request.cookies.userId,
+                                    user: request.cookies.userlogIn,
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -166,7 +186,8 @@ module.exports = (db) => {
                                     foodShops : filterResult,
                                     category: result2,
                                     loggedIn: request.cookies.logged_in,
-                                    userId: request.cookies.userId
+                                    userId: request.cookies.userId,
+                                    user: request.cookies.userlogIn
                                 }
                                 response.render('foodShops/index', data);
                             }
@@ -176,6 +197,26 @@ module.exports = (db) => {
             });
         }
     };
+
+    let newShop = (request,response) => {
+        cloudinary.uploader.upload(request.file.path, (result) => {
+            db.foodShops.newShop(request.body.shopname,request.body.address,request.body.postalcode,request.body.location,request.body.category, request.cookies.userId, result.url,(error,result)=>{
+                if(error){
+                    console.log(error)
+                    consolelog('error in add new shop')
+                }
+                else{
+                    let data = {
+                        loggedIn: request.cookies.logged_in,
+                        userId: request.cookies.userId,
+                        user: request.cookies.userlogIn,
+                        foodshop:result[0]
+                    }
+                    response.render('foodShops/show', data)
+                }
+            })
+        })
+    }
 
 
   /**
@@ -187,6 +228,7 @@ module.exports = (db) => {
     home: homeControllerCallback,
     foodShops: foodShopsControllerCallback,
     foodshop: foodShopControllerCallback,
+    newShop: newShop,
   };
 
 }

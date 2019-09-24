@@ -1,5 +1,17 @@
 module.exports = (db) => {
+    const cloudinary = require('cloudinary');
+    const multer = require('multer');
 
+    const storage = multer.diskStorage({
+      destination: function (request, file, callback) {
+        callback(null, '/uploads')
+      },
+      filename: function (request, file, callback) {
+        callback(null,file.originalname)
+      }
+    })
+
+    const upload = multer({ storage: storage })
 
 
   /**
@@ -29,8 +41,35 @@ module.exports = (db) => {
     }
 
     let signupControllerCallback = (request,response)=>{
-        console.log(request.body)
-        console.log(request.file)
+        db.users.getUser(request.body.email,request.body.password,(error,result)=>{
+            if(error){
+                console.log(error)
+                console.log('error in getting users for comparison')
+            }
+            else{
+                if(result !== null){
+                    if(result[0].email === request.body.email){
+                        response.send('Email is in used. Pick another email. Thank you.')
+                    }
+                }
+                else{
+                    cloudinary.uploader.upload(request.file.path, (result) => {
+                        db.users.newUser(request.body.email,request.body.password,request.body.profile_name,result.url,(error,result)=>{
+                            if(error){
+                                console.log(error)
+                                console.log('error in adding new user')
+                            }
+                            else{
+                                response.cookie('logged_in', true)
+                                response.cookie('userlogIn', result[0].profile_name)
+                                response.cookie('userId', result[0].id)
+                                response.redirect('/findfood/home')
+                            }
+                        })
+                    });
+                }
+            }
+        })
     };
 
 
@@ -58,6 +97,7 @@ module.exports = (db) => {
                         else{
                             if(result2 === null){
                                 let data = {
+                                    user: request.cookies.userlogIn,
                                     userId: request.cookies.userId,
                                     loggedIn: request.cookies.logged_in,
                                     user: result[0],
@@ -74,6 +114,7 @@ module.exports = (db) => {
                                     }
                                     else{
                                         let data = {
+                                            user: request.cookies.userlogIn,
                                             userId: request.cookies.userId,
                                             loggedIn: request.cookies.logged_in,
                                             user: result[0],
@@ -104,6 +145,7 @@ module.exports = (db) => {
                 }
                 else{
                     let data = {
+                        user: request.cookies.userlogIn,
                         loggedIn: request.cookies.logged_in,
                         users: result
                     }

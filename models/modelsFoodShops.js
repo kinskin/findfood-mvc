@@ -130,12 +130,26 @@ module.exports = (dbPoolInstance) => {
         })
     }
 
+    let newShop = (shopname,address,postalcode,location,category,user_id,image_url,callback)=>{
+        let query = 'insert into foodplace(shopname,address,postalcode,location,category,user_id,image_url) values($1,$2,$3,$4,$5,$6,$7) returning *'
+        let values = [shopname,address,postalcode,location,category,user_id,image_url]
+        dbPoolInstance.query(query,values,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                callback(null,queryResult.rows)
+            }
+        })
+    }
+
   return {
     getAllFoodShops,
     getFoodShop,
     getDistinctCategory,
     getUserShop,
     countEntries,
-    getFeaturedShop
+    getFeaturedShop,
+    newShop,
   };
 };

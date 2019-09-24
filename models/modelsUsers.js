@@ -48,6 +48,19 @@ module.exports = dbPoolInstance =>{
         })
     }
 
+    let newUser = (email,password,profile_name,profile_image,callback)=>{
+        let query = 'insert into users(email,password,profile_name,profile_image) values($1,$2,$3,$4) returning *'
+        let values = [email,password,profile_name,profile_image]
+        dbPoolInstance.query(query,values,(error,queryResult)=>{
+            if(error){
+                callback(error,null)
+            }
+            else{
+                callback(null,queryResult.rows)
+            }
+        })
+    }
+
     let getFeaturedUsers = callback =>{
         let query = 'select distinct users.id,users.profile_name,users.profile_image from users inner join foodplace on users.id = foodplace.user_id'
         dbPoolInstance.query(query,(error,queryResult)=>{
@@ -64,6 +77,7 @@ module.exports = dbPoolInstance =>{
         getUser,
         showUser,
         getAllUsers,
+        newUser,
         getFeaturedUsers
     }
 }
